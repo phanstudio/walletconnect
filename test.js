@@ -241,6 +241,7 @@ async function connectToWallet() {
         // Request account access
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const provider = new ethers.providers.Web3Provider(window.ethereum);
+        console.log(provider, accounts)
         const signer = provider.getSigner();
         
         console.log("Connected account:", accounts[0]);
