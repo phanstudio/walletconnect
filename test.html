@@ -168,8 +168,9 @@
     <!-- Ethers.js from CDN -->
     <!-- <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="application/javascript"></script> -->
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <!-- <script src="https://unpkg.com/ethers@6.8.1/dist/ethers.umd.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js" type="application/javascript"></script>
-
+    <script src="https://unpkg.com/@walletconnect/ethereum-provider@2.11.1/dist/index.umd.js"></script>
     
     <!-- WalletConnect -->
     <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
@@ -177,23 +178,15 @@
     <!-- Your wallet connection code -->
     <script src="test.js"></script>
     
-    <!-- Service Worker Registration -->
-    <!-- <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
-        }
-    </script> -->
-    
+    <button id="connectWallet">Connect Wallet</button>
+    <div id="walletAddress"></div>
+    <div id="walletBalance"></div>
+
+    <script src="main.js"></script>
+
+
     <!-- UI Interaction Script -->
-    <script>
+    <!-- <script>
         // DOM elements
         const walletInfoSection = document.getElementById('wallet-info');
         const accountAddressElement = document.getElementById('account-address');
@@ -266,6 +259,6 @@
                 executeButton.disabled = false;
             }
         });
-    </script>
+    </script> -->
 </body>
 </html>
