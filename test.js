@@ -150,7 +150,7 @@ async function connectToWallet() {
     // Check for installed browser extensions
     const hasMetaMaskExtension = typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
     const hasCoinbaseExtension = typeof window.ethereum !== 'undefined' && window.ethereum.isCoinbaseWallet;
-    
+    alert(mobileOS)
     return {
       isMobile,
       mobileOS,
@@ -185,7 +185,7 @@ async function connectToWallet() {
     const deepLinks = {
       metamask: {
         ios: `metamask://dapp/${currentUrl}`,
-        android: `metamask://dapp/${currentUrl}`,
+        android: `metamask://dapp/${currentUrl}`, // problem
         universal: `https://metamask.app.link/dapp/${window.location.host}${window.location.pathname}`
       },
       trust: {
@@ -239,14 +239,10 @@ async function connectToWallet() {
     if (window.ethereum) {
       try {
         // Request account access
-        alert("wow")
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        alert(accounts)
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        // console.log(provider, accounts)
+        const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = provider.getSigner();
-        
-        console.log("Connected account:", accounts[0]);
+        alert("Connected account:", accounts[0]);
         return { provider, signer, account: accounts[0] };
       } catch (error) {
         console.error("User denied account access", error);
