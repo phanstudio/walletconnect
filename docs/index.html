@@ -233,8 +233,8 @@ body {
 		<script src="index.js"></script>
 		<!-- Godot function -->
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":13078416,"index.wasm":52106500},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
-const GODOT_THREADS_ENABLED = false;
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":13078528,"index.wasm":48860187},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
+const GODOT_THREADS_ENABLED = true;
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
@@ -338,7 +338,7 @@ const engine = new Engine(GODOT_CONFIG);
 }());
 		</script>
 		<!-- Login functions -->
-		<script>
+		<!-- <script>
 			// Form submission handling
 			document.querySelector('.login-form').addEventListener('submit', function(e) {
 				e.preventDefault();
@@ -386,6 +386,71 @@ const engine = new Engine(GODOT_CONFIG);
 
 			// Initialize the page
 			loadGoogleAPI();
-		</script> 
+		</script>  -->
+		<script>
+		  document.addEventListener('DOMContentLoaded', function() {
+		  
+			// Form submission handling
+			const loginForm = document.querySelector('.login-form');
+			loginForm.addEventListener('submit', function(e) {
+			  e.preventDefault(); // Stop form submission (including "Go" on mobile)
+			  const email = this.querySelector('input[type="email"]').value;
+			  const password = this.querySelector('input[type="password"]').value;
+			  
+			  if (window.godotReceiveEmailPassword) {
+				window.godotReceiveEmailPassword(email, password); // Safe callback
+			  } else {
+				console.warn('Godot email/password callback not defined.');
+			  }
+			});
+		  
+			// Google Sign-in API loader
+			function loadGoogleAPI() {
+			  const script = document.createElement('script');
+			  script.src = 'https://accounts.google.com/gsi/client';
+			  script.async = true;
+			  script.defer = true;
+			  script.onload = initGoogleSignIn;
+			  document.body.appendChild(script);
+			}
+		  
+			// Google Sign-in init
+			function initGoogleSignIn() {
+			  const googleSignInButton = document.getElementById('google-signin-button');
+			  console.log('Page origin:', window.location.origin);
+		  
+			  google.accounts.id.initialize({
+				client_id: '1080764757645-9hs3ro2ilha96ho77ours6tehq17h155.apps.googleusercontent.com',
+				callback: (response) => {
+				  console.log('Google Credential:', response.credential);
+				  if (window.godotReceiveCredential) {
+					window.godotReceiveCredential(response.credential); // Safe callback
+				  } else {
+					console.warn('Godot credential callback not defined.');
+				  }
+				  // Optionally hide login UI
+				  // document.getElementById('login-container').style.display = 'none';
+				}
+			  });
+		  
+			  google.accounts.id.renderButton(
+				googleSignInButton,
+				{ theme: 'filled_black', size: 'large', width: 260, text: 'signin_with' }
+			  );
+			}
+		  
+			// Button to hide login (optional UI behavior)
+			const toggleLoginBtn = document.getElementById('toggle-login-btn');
+			toggleLoginBtn.addEventListener('click', function() {
+			  const loginBody = document.getElementById('login-body');
+			  if (loginBody) loginBody.style.display = 'none';
+			});
+		  
+			// Initialize Google API
+			loadGoogleAPI();
+		  
+		  });
+		</script>
+		  
 	</body> 
 </html>
