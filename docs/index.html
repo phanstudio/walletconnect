@@ -144,6 +144,23 @@ body {
   margin-bottom: 20px;
 }
 
+#toggle-login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#toggle-login-btn:hover {
+  color: goldenrod;
+}
+
+
 .login-button:hover {
   background-color: #45a049;
 }
@@ -195,6 +212,9 @@ body {
 				</div>
 				
 				<div class="google-signin-wrapper" id="google-signin-button"></div>
+				<div class="divider"></div>
+				<!-- <span>Already have an account</span> -->
+				<button id="toggle-login-btn">Already have an account. Login</button>
 			</div>
 		</div>
 		<canvas id="canvas">
@@ -213,8 +233,8 @@ body {
 		<script src="index.js"></script>
 		<!-- Godot function -->
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":13177088,"index.wasm":1648449},"focusCanvas":true,"gdextensionLibs":["liblimboai.web.template_debug.wasm32.wasm"],"serviceWorker":"index.service.worker.js"};
-const GODOT_THREADS_ENABLED = true;
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":13078416,"index.wasm":52106500},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
+const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
@@ -359,7 +379,11 @@ const engine = new Engine(GODOT_CONFIG);
 					{ theme: 'filled_black', size: 'large', width: 260, text: 'signin_with' } 
 				);
 			}
-			
+
+			document.getElementById('toggle-login-btn').addEventListener('click', function() {
+				document.getElementById('login-body').style.display = 'none';
+			});
+
 			// Initialize the page
 			loadGoogleAPI();
 		</script> 
