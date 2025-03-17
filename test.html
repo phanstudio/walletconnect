@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Passkey / Fingerprint Demo</title>
+</head>
+<body>
+  <h1>Passkey / Fingerprint Generator (WebAuthn)</h1>
+  <button id="create-passkey">Create Passkey (Fingerprint)</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    const output = document.getElementById('output');
+    const createBtn = document.getElementById('create-passkey');
+
+    function bufferToBase64(buffer) {
+      return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    }
+
+    createBtn.addEventListener('click', async () => {
+      try {
+        // Fake challenge & user ID for testing (normally provided by backend)
+        const challenge = Uint8Array.from('random-challenge-1234567890', c => c.charCodeAt(0));
+        const userId = Uint8Array.from('user-id-123456', c => c.charCodeAt(0));
+
+        const publicKeyCredentialCreationOptions = {
+          challenge: challenge,
+          rp: {
+            name: "Demo Site"
+          },
+          user: {
+            id: userId,
+            name: "user@example.com",
+            displayName: "User Example"
+          },
+          pubKeyCredParams: [
+            { type: "public-key", alg: -7 },   // ES256
+            { type: "public-key", alg: -257 } // RS256
+          ],
+          authenticatorSelection: {
+            authenticatorAttachment: "platform", // For fingerprint, FaceID, etc.
+            userVerification: "required" // Require biometrics
+          },
+          timeout: 60000,
+          attestation: "none" // No attestation for simplicity
+        };
+
+        // Create the credential (passkey)
+        const credential = await navigator.credentials.create({
+          publicKey: publicKeyCredentialCreationOptions
+        });
+
+        console.log('Credential:', credential);
+
+        // Extract and show data in Base64 format
+        const response = credential.response;
+        const clientDataJSON = bufferToBase64(response.clientDataJSON);
+        const attestationObject = bufferToBase64(response.attestationObject);
+        const rawId = bufferToBase64(credential.rawId);
+
+        output.textContent = JSON.stringify({
+          id: credential.id,
+          rawId: rawId,
+          type: credential.type,
+          response: {
+            clientDataJSON: clientDataJSON,
+            attestationObject: attestationObject
+          }
+        }, null, 2);
+
+        alert('Passkey (Fingerprint/Biometrics) created successfully!');
+      } catch (err) {
+        console.error('Error creating passkey:', err);
+        output.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
