@@ -192,7 +192,6 @@ body {
 		</style> 
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
-<link rel="manifest" href="index.manifest.json">
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js" crossorigin="anonymous"></script>
 	</head> 
@@ -233,8 +232,8 @@ body {
 		<script src="index.js"></script>
 		<!-- Godot function -->
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":13033664,"index.wasm":48860187},"focusCanvas":true,"gdextensionLibs":[],"serviceWorker":"index.service.worker.js"};
-const GODOT_THREADS_ENABLED = true;
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":true,"fileSizes":{"index.pck":13035952,"index.wasm":52106500},"focusCanvas":true,"gdextensionLibs":[]};
+const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
@@ -388,7 +387,7 @@ const engine = new Engine(GODOT_CONFIG);
 			loadGoogleAPI();
 		</script>  -->
 		<script>
-		  document.addEventListener('DOMContentLoaded', function() {
+		  document.addEventListener('DOMContentLoaded', function() { //add login in/ register
 		  
 			// Form submission handling
 			const loginForm = document.querySelector('.login-form');
@@ -450,6 +449,12 @@ const engine = new Engine(GODOT_CONFIG);
 			loadGoogleAPI();
 		  
 		  });
+		  	function detectEnvironment() {
+				const userAgent = navigator.userAgent || window.opera;
+				window.mobile = /android|iphone|ipad|ipod/i.test(userAgent.toLowerCase());
+				window.hasethereum = typeof window.ethereum !== 'undefined';
+			}
+			detectEnvironment();
 		</script>
 		  
 	</body> 

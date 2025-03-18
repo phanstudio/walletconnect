@@ -118,7 +118,7 @@
 //     alert("Web3Modal initialization failed. Please check your project ID and network connection.");
 //   }
 // Main wallet connection handler
-async function connectToWallet() {
+  async function connectToWallet() {
     const environment = detectEnvironment();
     
     if (environment.isMobile) {
