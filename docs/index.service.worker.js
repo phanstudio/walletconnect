@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1742227420|67257263323';
+const CACHE_VERSION = '1742885873|7148485293';
 /** @type {string} */
 const CACHE_PREFIX = 'Block Wars-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
