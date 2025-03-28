@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.phanstudio.twa",
+        "sha256_cert_fingerprints": ["09:86:A3:CA:63:42:EE:1B:F0:E2:F9:7A:66:9C:CA:EB:C7:D0:33:0D:C3:9D:AF:56:29:F0:A5:14:92:C2:D0:9F"]
+      }
+    }]
